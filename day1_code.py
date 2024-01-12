@@ -22,9 +22,9 @@ def seperate_to_digits(numbers):
         single_digits.append(modifier)
     return single_digits
 
-def calculate_calibration(numbers_list):
+def first_and_last(numbers):
     list_to_add = []
-    for sublist in numbers_list:
+    for sublist in numbers:
         if len(sublist) == 1 and len(str(sublist[0])) == 1:
             list_to_add.append(int(str(sublist[0]) * 2))
         elif len(sublist) == 1 and len(str(sublist[0])) == 2:
@@ -33,6 +33,12 @@ def calculate_calibration(numbers_list):
             list_to_add.append(int(str(sublist[0]) + str(sublist[-1])))
     return list_to_add
 
+def sum_of_list(numbers):
+    total = 0
+    for element in numbers:
+        total+= element
+    return total
+
 ### sum of smaller day 1 should be 408 ###
 calibration_values = []
 for entry in text_to_list('smallerday1.txt'):
@@ -40,4 +46,7 @@ for entry in text_to_list('smallerday1.txt'):
 print(calibration_values)
 digitised_calibrations = seperate_to_digits(calibration_values)
 print(digitised_calibrations)
-print(calculate_calibration(digitised_calibrations))
+add_me = first_and_last(digitised_calibrations)
+print(add_me)
+total_calibration = sum_of_list(add_me)
+print("Sum of all integers:", total_calibration)
