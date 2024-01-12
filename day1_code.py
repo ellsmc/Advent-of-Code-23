@@ -39,14 +39,10 @@ def sum_of_list(numbers):
         total+= element
     return total
 
-### sum of smaller day 1 should be 408 ###
 calibration_values = []
-for entry in text_to_list('smallerday1.txt'):
+for entry in text_to_list('day1_input.txt'):
     calibration_values.append(extract_numbers(entry))
-print(calibration_values)
 digitised_calibrations = seperate_to_digits(calibration_values)
-print(digitised_calibrations)
 add_me = first_and_last(digitised_calibrations)
-print(add_me)
 total_calibration = sum_of_list(add_me)
 print("Sum of all integers:", total_calibration)
