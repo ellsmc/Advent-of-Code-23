@@ -8,11 +8,19 @@ def text_to_list(filename):
             data_lists.append(data)
     return data_lists
 
-# do i need to split the  large integers into digits?
 def extract_numbers(item):
     numbers = re.findall('[0-9]+', item)
     numbers = [int(element) for element in numbers]
     return numbers
+
+def seperate_to_digits(numbers):
+    single_digits = []
+    for sublist in numbers:
+        modifier = []
+        for num in sublist:
+            modifier.extend([int(digit) for digit in str(num)])
+        single_digits.append(modifier)
+    return single_digits
 
 def calculate_calibration(numbers_list):
     list_to_add = []
@@ -29,6 +37,7 @@ def calculate_calibration(numbers_list):
 calibration_values = []
 for entry in text_to_list('smallerday1.txt'):
     calibration_values.append(extract_numbers(entry))
-
 print(calibration_values)
-print(calculate_calibration(calibration_values))
+digitised_calibrations = seperate_to_digits(calibration_values)
+print(digitised_calibrations)
+print(calculate_calibration(digitised_calibrations))
