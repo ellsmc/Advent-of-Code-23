@@ -1,26 +1,22 @@
-word_to_number = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9}
+from day1_part1_code import first_and_last, sum_of_list
 
-import re
+def get_data():
+    lines = []
+    with open('day1_input.txt') as f:
+        for line in f.readlines():
+            lines.append(line)   
+    return (lines)
 
-def extract_numbers(string_list):
-    numeric_result = []
-    textual_result = []
+def calculate_calibration2(data_noise):
+        word_to_digit = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9"}
+        total_sum = 0
+        total_sum1 = 0
+        digit_list = []
+        for line in data_noise:
+            # := walrus operator - assignment on condition
+            converted_words = [convert if (convert := "".join([number for word, number in word_to_digit.items() if line[index:].startswith(word)])) else line[index] for index in range(len(line))]
+            digits = [int(i) for i in converted_words if i.isdigit()]
+            digit_list.append(digits)
+        return digit_list
 
-    for inner_list in string_list:
-        for string in inner_list:
-            # Extract numeric representations
-            numeric_matches = re.findall(r'\d+', string)
-            numeric_result.extend(map(int, numeric_matches))
-
-            # Extract textual representations
-            textual_matches = re.findall(r'[a-zA-Z]+', string)
-            textual_result.extend(textual_matches)
-
-    return numeric_result, textual_result
-
-# Example usage
-input_strings = [['two1nine'], ['eightwothree'], ['abcone2threexyz'], ['xtwone3four'], ['4nineeightseven2'], ['zoneight234'], ['7pqrstsixteen']]
-numeric_numbers, textual_numbers = extract_numbers(input_strings)
-
-print("Numeric representations:", numeric_numbers)
-print("Textual representations:", textual_numbers)
+print("Sum total part two: ", sum_of_list(first_and_last(calculate_calibration2(get_data()))))

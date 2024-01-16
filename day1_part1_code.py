@@ -43,6 +43,5 @@ calibration_values = []
 for entry in text_to_list('day1_input.txt'):
     calibration_values.append(extract_numbers(entry))
 digitised_calibrations = seperate_to_digits(calibration_values)
-add_me = first_and_last(digitised_calibrations)
-total_calibration = sum_of_list(add_me)
+total_calibration = sum_of_list(first_and_last(digitised_calibrations))
 print("Sum of all integers:", total_calibration)
