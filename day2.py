@@ -1,38 +1,35 @@
-# 12 red cubes, 13 green cubes, and 14 blue cubes
-def get_data():
-    lines = []
-    with open('2_input.txt') as f:
-        for line in f.readlines():
-            lines.append(line)   
-    return (lines)
+inputdata = []
+with open('2_input.txt') as f:
+    for line in f.readlines():
+        inputdata.append(line)   
 
-def find_highest_counts(game_data):
-    colour_counts = {}    
-    for game in game_data:
-        game_parts = game.split(':')
-        game_number = game_parts[0].strip()
-        counts_str = game_parts[1].strip()
-        print(game_number)
-        counts_list = counts_str.split(';')
-        for count_set in counts_list:
-            colours = count_set.split(',')
-            print(colours) # here I have the games and the rounds individually
-            for colour in colours:
-                colour_count = colour.strip().split()
-                colour_name = colour_count[1]
-                count = int(colour_count[0])
-                print(colour_name, count)
-                for i in game:
-                    i = 1
-                if colour_name not in colour_counts or count > colour_counts[colour_name]:
-                    colour_counts[colour_name] = count
-    return colour_counts
+max_cubes = {'red': 12, 'blue': 14, 'green': 13}
+index = 1
+sum = 0
 
-fulldata = get_data()
-result = find_highest_counts(fulldata)
+for game in inputdata:
+    applicable = []
+    game = game.rstrip("\n")
+    game = game.replace(";", ",")
+    game = game.split(':')
+    rounds = game[1]
+    cubes = [pair.strip().split() for pair in rounds.split(',')]
+    round_max = {}
 
-for colour, count in result.items():
-    print(f'highest count of {colour}: {count}')
+    for value, colour in cubes:
+        value = int(value)
+        if colour not in round_max or value > round_max[colour]:
+            round_max[colour] = value
 
+    for key in max_cubes:
+        if key in round_max:
+            if max_cubes[key] >= round_max[key]:
+                applicable.append(index)
+            else:
+                pass
+            
+    if len(applicable) == 3:
+        sum = sum + index
+    index += 1
 
-
+print(sum)
